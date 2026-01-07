@@ -1,0 +1,1065 @@
+index.html
+
+html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adapter | шафо</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Анимированная координатная сетка -->
+    <div class="grid-overlay"></div>
+    
+    <!-- Главный контейнер -->
+    <main class="container">
+        <!-- Аватар и информация -->
+        <section class="profile-section">
+            <div class="avatar-container">
+                <img src="img/avatar.jpg" alt="шафо" class="avatar" id="avatar">
+                <div class="avatar-glow"></div>
+            </div>
+            
+            <div class="profile-info">
+                <h1 class="nickname">шафо</h1>
+                <p class="username">nothevo</p>
+                <div class="status">
+                    <div class="status-dot"></div>
+                    <span class="status-text">онлайн</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Кнопки -->
+        <section class="buttons-section">
+            <div class="buttons-grid">
+                <a href="https://t.me/nothevo" class="adapter-btn" target="_blank">
+                    <div class="btn-content">
+                        <i class="fab fa-telegram"></i>
+                        <span class="btn-text">мой аккаунт</span>
+                    </div>
+                    <div class="btn-glow"></div>
+                </a>
+
+                <a href="https://t.me/+UO-WJgp_j65iYjA6" class="adapter-btn" target="_blank">
+                    <div class="btn-content">
+                        <i class="fas fa-project-diagram"></i>
+                        <span class="btn-text">мой проект</span>
+                    </div>
+                    <div class="btn-glow"></div>
+                </a>
+
+                <a href="https://t.me/+I8WOJDuVRIdjNGUy" class="adapter-btn" target="_blank">
+                    <div class="btn-content">
+                        <i class="fas fa-comments"></i>
+                        <span class="btn-text">мой чат</span>
+                    </div>
+                    <div class="btn-glow"></div>
+                </a>
+
+                <a href="https://tgshafo.github.io/-/" class="adapter-btn" target="_blank">
+                    <div class="btn-content">
+                        <i class="fas fa-crown"></i>
+                        <span class="btn-text">мой фейм лист</span>
+                    </div>
+                    <div class="btn-glow"></div>
+                </a>
+
+                <a href="https://t.me/+3d-7IcWMY_1hZWIy" class="adapter-btn" target="_blank">
+                    <div class="btn-content">
+                        <i class="fas fa-code"></i>
+                        <span class="btn-text">мои ворки</span>
+                    </div>
+                    <div class="btn-glow"></div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Дополнительная информация -->
+        <section class="info-section">
+            <div class="info-card">
+                <h3 class="info-title">
+                    <i class="fas fa-terminal"></i>
+                    о адаптере
+                </h3>
+                <p class="info-text">
+                    Адаптер — это централизованная точка доступа ко всем моим проектам 
+                    и ресурсам. Здесь собраны все важные ссылки в одном месте.
+                </p>
+                <div class="stats">
+                    <div class="stat">
+                        <i class="fas fa-link"></i>
+                        <span>5 активных ссылок</span>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-bolt"></i>
+                        <span>24/7 онлайн</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Футер -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p class="copyright">
+                    &copy; 2024 adapter.shafo | все права защищены
+                </p>
+                <div class="tech-stack">
+                    <span class="tech-item">HTML5</span>
+                    <span class="tech-item">CSS3</span>
+                    <span class="tech-item">JavaScript</span>
+                    <span class="tech-item">GitHub Pages</span>
+                </div>
+                <div class="github-link">
+                    <a href="https://github.com/tgshafo" target="_blank">
+                        <i class="fab fa-github"></i>
+                        tgshafo на GitHub
+                    </a>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Эффекты неона -->
+    <div class="neon-effects">
+        <div class="neon-line line-1"></div>
+        <div class="neon-line line-2"></div>
+        <div class="neon-line line-3"></div>
+        <div class="neon-line line-4"></div>
+    </div>
+
+    <!-- Аудио для эффектов (опционально) -->
+    <audio id="hover-sound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
+style.css
+
+css
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Consolas', 'Courier New', monospace;
+}
+
+body {
+    background: #0a0a0a;
+    color: #e0e0e0;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Анимированная координатная сетка */
+.grid-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(rgba(128, 128, 128, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(128, 128, 128, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: gridMove 20s linear infinite;
+    z-index: 1;
+    pointer-events: none;
+}
+
+@keyframes gridMove {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 50px 50px;
+    }
+}
+
+/* Неоновые линии */
+.neon-effects {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.neon-line {
+    position: absolute;
+    background: rgba(128, 128, 128, 0.3);
+    box-shadow: 0 0 10px rgba(128, 128, 128, 0.5);
+    animation: neonScan 8s linear infinite;
+}
+
+.line-1 {
+    top: 20%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    animation-delay: 0s;
+}
+
+.line-2 {
+    top: 40%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    animation-delay: 2s;
+}
+
+.line-3 {
+    top: 60%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    animation-delay: 4s;
+}
+
+.line-4 {
+    top: 80%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    animation-delay: 6s;
+}
+
+@keyframes neonScan {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+/* Основной контейнер */
+.container {
+    position: relative;
+    z-index: 3;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Секция профиля */
+.profile-section {
+    text-align: center;
+    margin-bottom: 60px;
+    width: 100%;
+    max-width: 600px;
+    padding: 40px;
+    background: rgba(20, 20, 20, 0.7);
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    border-radius: 20px;
+    box-shadow: 
+        0 0 30px rgba(128, 128, 128, 0.2),
+        inset 0 0 20px rgba(128, 128, 128, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.profile-section::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, 
+        transparent, 
+        rgba(128, 128, 128, 0.5), 
+        transparent);
+    border-radius: 22px;
+    z-index: -1;
+    animation: borderGlow 3s ease-in-out infinite;
+}
+
+@keyframes borderGlow {
+    0%, 100% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+.avatar-container {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    margin: 0 auto 30px;
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 4px solid rgba(128, 128, 128, 0.5);
+    object-fit: cover;
+    position: relative;
+    z-index: 2;
+    transition: all 0.5s ease;
+    filter: grayscale(0.3) contrast(1.1);
+}
+
+.avatar:hover {
+    transform: scale(1.05);
+    border-color: rgba(128, 128, 128, 0.8);
+    box-shadow: 0 0 40px rgba(128, 128, 128, 0.6);
+    filter: grayscale(0) contrast(1.2);
+}
+
+.avatar-glow {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    border-radius: 50%;
+    background: radial-gradient(circle, 
+        rgba(128, 128, 128, 0.3) 0%, 
+        transparent 70%);
+    z-index: 1;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+}
+
+.profile-info {
+    margin-top: 20px;
+}
+
+.nickname {
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 
+        0 0 10px rgba(255, 255, 255, 0.5),
+        0 0 20px rgba(128, 128, 128, 0.5);
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    position: relative;
+    display: inline-block;
+}
+
+.nickname::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(128, 128, 128, 0.8), 
+        transparent);
+}
+
+.username {
+    font-size: 1.4rem;
+    color: rgba(128, 128, 128, 0.9);
+    letter-spacing: 3px;
+    text-transform: lowercase;
+    margin-bottom: 20px;
+    font-weight: 300;
+}
+
+.status {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 20px;
+    background: rgba(30, 30, 30, 0.8);
+    border-radius: 20px;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #4CAF50;
+    box-shadow: 0 0 10px #4CAF50;
+    animation: blink 2s infinite;
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.status-text {
+    color: #4CAF50;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Секция кнопок */
+.buttons-section {
+    width: 100%;
+    max-width: 900px;
+    margin-bottom: 60px;
+}
+
+.buttons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+}
+
+.adapter-btn {
+    position: relative;
+    display: block;
+    background: rgba(25, 25, 25, 0.85);
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 15px;
+    padding: 25px;
+    text-decoration: none;
+    color: #e0e0e0;
+    transition: all 0.4s ease;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 
+        0 5px 15px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.adapter-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(128, 128, 128, 0.2),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.adapter-btn:hover::before {
+    left: 100%;
+}
+
+.adapter-btn:hover {
+    transform: translateY(-10px);
+    border-color: rgba(128, 128, 128, 0.8);
+    box-shadow: 
+        0 15px 30px rgba(128, 128, 128, 0.3),
+        0 0 40px rgba(128, 128, 128, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    background: rgba(30, 30, 30, 0.95);
+}
+
+.btn-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.adapter-btn i {
+    font-size: 2.5rem;
+    color: rgba(128, 128, 128, 0.9);
+    transition: all 0.3s ease;
+}
+
+.adapter-btn:hover i {
+    color: #ffffff;
+    transform: scale(1.2);
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+}
+
+.btn-text {
+    font-size: 1.3rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s ease;
+}
+
+.adapter-btn:hover .btn-text {
+    color: #ffffff;
+    letter-spacing: 2px;
+}
+
+.btn-glow {
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 17px;
+    background: linear-gradient(45deg, 
+        transparent, 
+        rgba(128, 128, 128, 0.3), 
+        transparent);
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.adapter-btn:hover .btn-glow {
+    opacity: 1;
+}
+
+/* Информационная секция */
+.info-section {
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 40px;
+}
+
+.info-card {
+    background: rgba(20, 20, 20, 0.7);
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 
+        0 0 20px rgba(128, 128, 128, 0.1),
+        inset 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.info-title {
+    font-size: 1.8rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.info-title i {
+    color: rgba(128, 128, 128, 0.9);
+    font-size: 1.6rem;
+}
+
+.info-text {
+    color: rgba(200, 200, 200, 0.8);
+    line-height: 1.6;
+    margin-bottom: 25px;
+    font-size: 1.1rem;
+}
+
+.stats {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.stat {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    background: rgba(30, 30, 30, 0.8);
+    border-radius: 10px;
+    border: 1px solid rgba(128, 128, 128, 0.2);
+}
+
+.stat i {
+    color: rgba(128, 128, 128, 0.9);
+}
+
+.stat span {
+    color: rgba(200, 200, 200, 0.9);
+    font-size: 0.95rem;
+}
+
+/* Футер */
+.footer {
+    width: 100%;
+    max-width: 900px;
+    margin-top: auto;
+    padding-top: 40px;
+    border-top: 1px solid rgba(128, 128, 128, 0.2);
+}
+
+.footer-content {
+    text-align: center;
+}
+
+.copyright {
+    color: rgba(128, 128, 128, 0.7);
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.tech-stack {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.tech-item {
+    padding: 6px 15px;
+    background: rgba(30, 30, 30, 0.8);
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    border-radius: 20px;
+    color: rgba(128, 128, 128, 0.9);
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+}
+
+.tech-item:hover {
+    color: #ffffff;
+    border-color: rgba(128, 128, 128, 0.7);
+    background: rgba(40, 40, 40, 0.9);
+}
+
+.github-link a {
+    color: rgba(128, 128, 128, 0.9);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 25px;
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+}
+
+.github-link a:hover {
+    color: #ffffff;
+    border-color: rgba(128, 128, 128, 0.7);
+    background: rgba(40, 40, 40, 0.9);
+    box-shadow: 0 0 20px rgba(128, 128, 128, 0.3);
+}
+
+.github-link i {
+    font-size: 1.2rem;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px 15px;
+    }
+    
+    .profile-section {
+        padding: 30px 20px;
+    }
+    
+    .avatar-container {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .nickname {
+        font-size: 2.8rem;
+    }
+    
+    .buttons-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .adapter-btn {
+        padding: 20px;
+    }
+    
+    .stats {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .nickname {
+        font-size: 2.2rem;
+    }
+    
+    .username {
+        font-size: 1.2rem;
+    }
+    
+    .adapter-btn i {
+        font-size: 2rem;
+    }
+    
+    .btn-text {
+        font-size: 1.1rem;
+    }
+    
+    .info-card {
+        padding: 20px;
+    }
+    
+    .info-title {
+        font-size: 1.5rem;
+    }
+}
+
+/* Эффект загрузки */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.profile-section,
+.buttons-section,
+.info-section,
+.footer {
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+.profile-section {
+    animation-delay: 0.2s;
+}
+
+.buttons-section {
+    animation-delay: 0.4s;
+}
+
+.info-section {
+    animation-delay: 0.6s;
+}
+
+.footer {
+    animation-delay: 0.8s;
+}
+script.js
+
+javascript
+// Инициализация адаптера
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🔧 Адаптер шафо загружен');
+    
+    initHoverEffects();
+    initAvatarAnimation();
+    initAudioEffects();
+    initCursorEffects();
+    updateTime();
+});
+
+// Эффекты при наведении на кнопки
+function initHoverEffects() {
+    const buttons = document.querySelectorAll('.adapter-btn');
+    
+    buttons.forEach(button => {
+        button.addEventListener('mouseenter', function() {
+            // Добавляем класс активности
+            this.classList.add('active');
+            
+            // Создаем частицы
+            createParticles(this);
+            
+            // Воспроизводим звук (если доступен)
+            playHoverSound();
+        });
+        
+        button.addEventListener('mouseleave', function() {
+            this.classList.remove('active');
+        });
+        
+        // Клик по кнопке
+        button.addEventListener('click', function(e) {
+            // Анимация клика
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 200);
+            
+            // Статистика кликов (демо)
+            logClick(this.href);
+        });
+    });
+}
+
+// Анимация аватара
+function initAvatarAnimation() {
+    const avatar = document.getElementById('avatar');
+    if (!avatar) return;
+    
+    // Вращение при наведении
+    avatar.addEventListener('mouseenter', function() {
+        this.style.transition = 'transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+        this.style.transform = 'rotate(10deg) scale(1.1)';
+    });
+    
+    avatar.addEventListener('mouseleave', function() {
+        this.style.transform = 'rotate(0deg) scale(1)';
+    });
+    
+    // Периодическое мерцание
+    setInterval(() => {
+        avatar.style.boxShadow = `
+            0 0 ${20 + Math.random() * 20}px 
+            rgba(128, 128, 128, ${0.3 + Math.random() * 0.3})
+        `;
+    }, 2000);
+}
+
+// Создание частиц
+function createParticles(element) {
+    const rect = element.getBoundingClientRect();
+    const particles = 8;
+    
+    for (let i = 0; i < particles; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        // Позиция
+        const x = rect.left + rect.width / 2;
+        const y = rect.top + rect.height / 2;
+        
+        particle.style.position = 'fixed';
+        particle.style.left = `${x}px`;
+        particle.style.top = `${y}px`;
+        particle.style.width = '4px';
+        particle.style.height = '4px';
+        particle.style.background = 'rgba(128, 128, 128, 0.8)';
+        particle.style.borderRadius = '50%';
+        particle.style.pointerEvents = 'none';
+        particle.style.zIndex = '1000';
+        
+        // Анимация
+        const angle = (Math.PI * 2 / particles) * i;
+        const speed = 2 + Math.random() * 2;
+        const distance = 30 + Math.random() * 40;
+        
+        particle.animate([
+            {
+                transform: `translate(0, 0) scale(1)`,
+                opacity: 1
+            },
+            {
+                transform: `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px) scale(0)`,
+                opacity: 0
+            }
+        ], {
+            duration: 600 + Math.random() * 400,
+            easing: 'cubic-bezier(0.215, 0.610, 0.355, 1)'
+        });
+        
+        document.body.appendChild(particle);
+        
+        // Удаление частицы
+        setTimeout(() => {
+            if (particle.parentNode) {
+                particle.parentNode.removeChild(particle);
+            }
+        }, 1000);
+    }
+}
+
+// Звуковые эффекты
+function initAudioEffects() {
+    // Создаем аудио контекст для более сложных звуков
+    try {
+        if (typeof AudioContext !== 'undefined' || typeof webkitAudioContext !== 'undefined') {
+            window.audioContext = new (AudioContext || webkitAudioContext)();
+        }
+    } catch (e) {
+        console.log('Аудио контекст не поддерживается');
+    }
+}
+
+function playHoverSound() {
+    const audio = document.getElementById('hover-sound');
+    if (audio) {
+        audio.currentTime = 0;
+        audio.volume = 0.3;
+        audio.play().catch(e => console.log('Автовоспроизведение заблокировано'));
+    }
+}
+
+// Эффекты курсора
+function initCursorEffects() {
+    const cursor = document.createElement('div');
+    cursor.id = 'custom-cursor';
+    cursor.style.position = 'fixed';
+    cursor.style.width = '20px';
+    cursor.style.height = '20px';
+    cursor.style.border = '2px solid rgba(128, 128, 128, 0.7)';
+    cursor.style.borderRadius = '50%';
+    cursor.style.pointerEvents = 'none';
+    cursor.style.zIndex = '9999';
+    cursor.style.transform = 'translate(-50%, -50%)';
+    cursor.style.transition = 'width 0.2s, height 0.2s, border-color 0.2s';
+    document.body.appendChild(cursor);
+    
+    const cursorDot = document.createElement('div');
+    cursorDot.id = 'cursor-dot';
+    cursorDot.style.position = 'fixed';
+    cursorDot.style.width = '4px';
+    cursorDot.style.height = '4px';
+    cursorDot.style.background = 'rgba(128, 128, 128, 0.9)';
+    cursorDot.style.borderRadius = '50%';
+    cursorDot.style.pointerEvents = 'none';
+    cursorDot.style.zIndex = '10000';
+    cursorDot.style.transform = 'translate(-50%, -50%)';
+    document.body.appendChild(cursorDot);
+    
+    let mouseX = 0;
+    let mouseY = 0;
+    let cursorX = 0;
+    let cursorY = 0;
+    let dotX = 0;
+    let dotY = 0;
+    
+    // Обновление позиции курсора
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        
+        // Курсор-точка следует сразу
+        cursorDot.style.left = `${mouseX}px`;
+        cursorDot.style.top = `${mouseY}px`;
+    });
+    
+    // Анимация основного курсора
+    function animateCursor() {
+        // Плавное следование основного курсора
+        cursorX += (mouseX - cursorX) * 0.1;
+        cursorY += (mouseY - cursorY) * 0.1;
+        
+        cursor.style.left = `${cursorX}px`;
+        cursor.style.top = `${cursorY}px`;
+        
+        requestAnimationFrame(animateCursor);
+    }
+    
+    animateCursor();
+    
+    // Эффекты при наведении на кнопки
+    document.querySelectorAll('a, button, .adapter-btn').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursor.style.width = '40px';
+            cursor.style.height = '40px';
+            cursor.style.borderColor = 'rgba(255, 255, 255, 0.9)';
+            cursor.style.borderWidth = '1px';
+        });
+        
+        el.addEventListener('mouseleave', () => {
+            cursor.style.width = '20px';
+            cursor.style.height = '20px';
+            cursor.style.borderColor = 'rgba(128, 128, 128, 0.7)';
+            cursor.style.borderWidth = '2px';
+        });
+    });
+}
+
+// Логирование кликов (демо)
+function logClick(url) {
+    console.log(`📊 Клик по ссылке: ${url}`);
+    
+    // Можно добавить отправку в Google Analytics или другую аналитику
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'click', {
+            'event_category': 'Adapter Link',
+            'event_label': url
+        });
+    }
+}
+
+// Обновление времени (опционально)
+function updateTime() {
+    const timeElement = document.createElement('div');
+    timeElement.id = 'live-time';
+    timeElement.style.position = 'fixed';
+    timeElement.style.bottom = '20px';
+    timeElement.style.right = '20px';
+    timeElement.style.color = 'rgba(128, 128, 128, 0.6)';
+    timeElement.style.fontSize = '0.8rem';
+    timeElement.style.fontFamily = 'monospace';
+    timeElement.style.zIndex = '100';
+    document.body.appendChild(timeElement);
+    
+    function update() {
+        const now = new Date();
+        const timeString = now.toLocaleTimeString('ru-RU', {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false
+        });
+        timeElement.textContent = `⏱ ${timeString}`;
+    }
+    
+    update();
+    setInterval(update, 1000);
+}
+
+// Добавляем CSS для частиц
+const style = document.createElement('style');
+style.textContent = `
+    .particle {
+        position: fixed;
+        pointer-events: none;
+        z-index: 1000;
+    }
+    
+    @media (max-width: 768px) {
+        #custom-cursor,
+        #cursor-dot {
+            display: none;
+        }
+    }
+`;
+document.head.appendChild(style);
+
+измени 
+ник (с шафо на swetlov)
+username (c nothevo на @vkswetlov)
+
+измени кнопки тоже на 
+1 кнопка (мой аккаунт(https://t.me/Vkswetlov при нажатии на нее будет перебрасывать на эту ссылку))
+2 кнопка (мой проектhttps://t.me/+RvIJpAZytNY5NjEy при нажатии будет перебрасывать на эту ссылку)
+3 кнопка (мои ворки ( https://t.me/+te--f9CnytVmZGU6 при нажатии будет перебрасывать на эту ссылку)
+4 кнопка (мой клан https://t.me/+HtU0BVp926s1NWIy при нажатии будет перебрасывать на эту ссылку)
+5 кнопка (прайс https://t.me/+6jZ3dH5S_XxkNTVi при нажатии будет перебрасывать на эту ссылку)
